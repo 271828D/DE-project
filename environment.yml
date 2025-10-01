@@ -11,4 +11,5 @@ dependencies:
   - black
   - flake8
   - pytest
+  - pre-commit
 prefix: /home/x271828/miniconda3/envs/coding_task
