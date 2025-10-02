@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-class GetDataFromURL:
+class GetDataFromUrl:
     """
     Class to verify URL and dowload the file
     """
@@ -51,13 +51,16 @@ class GetDataFromURL:
             print(f"Download failed: {e}")
             return None
 
-    def download_file(self, url_data: bytes, output_path: str | None = None):
+    def download_file(
+        self, url_data: bytes, output_path: str | None = None
+    ) -> str:
         """
         Download the data file to a .csv file,
         creates the /data folder and saves
         the downloaded data in the /data folder
         with the name:
-        order_items_<timestamp>.csv
+        order_items_<timestamp>.csv. The
+        function returns the path for the downoaded file.
 
         Arg:
             url_data:
@@ -68,7 +71,7 @@ class GetDataFromURL:
         filename = f"order_items_{timestamp}.csv"
 
         # Create data folder if doesn't exist
-        data_folder = Path("data")
+        data_folder = Path("../data")
         data_folder.mkdir(parents=True, exist_ok=True)
 
         # Falta agregar check: exist ?
@@ -79,4 +82,6 @@ class GetDataFromURL:
         with output_file.open("wb") as f:
             f.write(url_data)
 
-        return print(f"Data stored in: {output_file}")
+        print(f"Data stored in: {output_file}")
+
+        return output_file
