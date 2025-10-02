@@ -77,6 +77,6 @@ class GetDataFromURL:
 
         # Open the file and saves the data
         with output_file.open("wb") as f:
-            f.write(url_data.content)
+            f.write(url_data)
 
         return print(f"Data stored in: {output_file}")
