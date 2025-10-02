@@ -57,3 +57,15 @@ class CleanData:
         return pd.concat(
             self.discarded_rows, ignore_index=True
         )  # Concat all the elements on the list discarded_rows
+
+    def save_discarded_rows(
+        self, output_path: str = "../data/discarded_rows.csv"
+    ) -> None:
+        """Save discarded rows in a .csv file"""
+        discarded = self.get_discarded_rows()
+
+        if not discarded.empty:  # check if discarded.empty is false
+            discarded.to_csv(output_path, index=False)
+            print(f"{len(discarded)} Discarded rows saved to {output_path}")
+        else:
+            print("No rows were discarded")
