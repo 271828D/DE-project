@@ -50,4 +50,10 @@ class CleanData:
         return self.df
 
     def get_discarded_rows(self) -> pd.DataFrame:
-        pass
+        """Get all the discarded rows to a DataFrame"""
+        if not self.discarded_rows:
+            return pd.DataFrame()  # Return empty DF if nothing discarded
+
+        return pd.concat(
+            self.discarded_rows, ignore_index=True
+        )  # Concat all the elements on the list discarded_rows
