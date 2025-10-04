@@ -2,24 +2,26 @@
 
 A Python script to download, clean, and generate reports from CSV data.
 
-## Environment Setup
-
-This project uses **UV** for easy Python dependency management.
-
 ### **Prerequisites**
 - Python 3.10+
 - UV package manager ([installation guide](https://github.com/astral-sh/uv))
 
 ## **Quick Start**
+
+### 1. Install UV (if not installed)
 ```
 # Install development environment
-make install
-
-# Run the application
-uv run python main.py --url "YOUR_CSV_URL"
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-### **Example**
+### 2. Setup Env
 ```
+# Create virtual environment and install dependencies
+uv venv .venv --python 3.10
+uv sync --dev
+```
+### 3. Run the Application
+```
+# Run with example URL
 uv run python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
 ```
 
@@ -42,10 +44,10 @@ make run       # Run the application
 If you don't have make installed:
 ```
 # Create virtual environment
-uv venv .venv --python 3.10
+uv venv coding_task --python 3.10
 
 # Activate it
-source .venv/bin/activate
+source coding_task/bin/activate
 
 # Install dependencies
 uv sync --dev
