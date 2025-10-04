@@ -1,6 +1,8 @@
 """Script to clean data from the .csv file"""
 
 import pandas as pd
+from pathlib import Path
+from ..utils.paths import get_data_directory
 
 
 class ReadCsv:
@@ -8,9 +10,6 @@ class ReadCsv:
     Class to read .csv file and return it
     as a pandas dataframe.
     """
-
-    def __init__(self):
-        pass
 
     def read(self, path_file: str) -> pd.DataFrame:
         return pd.read_csv(path_file, sep=",")
@@ -59,10 +58,16 @@ class CleanData:
         )  # Concat all the elements on the list discarded_rows
 
     def save_discarded_rows(
-        self, output_path: str = "../data/discarded_rows.csv"
+        self, output_path: Path | str | None = None
     ) -> None:
         """Save discarded rows in a .csv file"""
         discarded = self.get_discarded_rows()
+
+        if output_path is None:
+            output_path = get_data_directory() / "discarded_rows.csv"
+        else:
+            output_path = Path(output_path)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
 
         if not discarded.empty:  # check if discarded.empty is false
             discarded.to_csv(output_path, index=False)
