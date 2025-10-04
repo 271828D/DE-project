@@ -19,41 +19,14 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv venv .venv --python 3.10
 uv sync --dev
 ```
-### 3. Run the Application
-```
-# Run with example URL
-uv run python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
-```
-
-## Activate virtual environment
+### 3. Activate virtual environment
 ```
 source .venv/bin/activate
 ```
-### Available Commands
+### 4. Run the Application
 ```
-make           # Show all available commands
-make install   # Setup development environment
-make test      # Run tests
-make format    # Format code with black
-make lint      # Check code quality
-make clean     # Remove virtual environment
-make run       # Run the application
-```
-
-### Manual Setup (without Make)
-If you don't have make installed:
-```
-# Create virtual environment
-uv venv coding_task --python 3.10
-
-# Activate it
-source coding_task/bin/activate
-
-# Install dependencies
-uv sync --dev
-
-# Install pre-commit hooks
-pre-commit install
+# Run with example URL
+uv run python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
 ```
 
 **Note: Conda support is deprecated.**
