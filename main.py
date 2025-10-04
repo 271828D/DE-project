@@ -34,6 +34,7 @@ def main():
     cleaner.remove_duplicate_rows()
     cleaner.clean_empty_rows()
     cleaner.save_discarded_rows()
+    cleaner.save_clean_data()  # Add. save step for the clean data
     discarded_dataframe = cleaner.get_discarded_rows()
 
     # Reports
