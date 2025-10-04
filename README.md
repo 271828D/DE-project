@@ -29,7 +29,7 @@ python main.py --url "CSV_URL_HERE"
 ```
 ### **Example**
 ```bash
-python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_2_.csv"
+python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
 ```
 ## **What It Does**
 1. **Downloads** the CSV file from the provided URL
@@ -45,12 +45,15 @@ All reports are saved in the ```data/``` folder:
 1. ```order_items_<timestamp>.csv```
 2. ```discarded_rows.csv```
 3. ```processing_stats.json```
-```{
+```
+{
     "total_rows": int,
     "total_empty_rows_removed": int,
     "total_invalid_rows_discarded": int,
     "total_duplicate_rows_removed": int,
     "total_usable_rows": int
-}```
+}
+```
+
 4. ```monthly_metrics.csv```
-        *TO DO*
+        **TO DO**

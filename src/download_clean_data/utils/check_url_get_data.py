@@ -1,26 +1,19 @@
-# from urllib.request import urlretrieve
+"""
+Script with the class GetDataFromUrl
+which handle the functions to get
+and download the data.
+"""
+
 import requests
 from pathlib import Path
 from datetime import datetime
+from ..utils.paths import get_data_directory
 
 
 class GetDataFromUrl:
     """
     Class to verify URL and dowload the file
     """
-
-    def __init__(self):
-        pass
-
-    def check_url(self, timeout=15) -> bool:
-        """Verify if the URL exist and can
-        be applied a GET request.
-
-        Args:
-            timeout: time
-
-        """
-        pass
 
     def check_request(self, url: str, timeout: int = 15) -> bytes:
         """This function do the request (GET)
@@ -33,6 +26,13 @@ class GetDataFromUrl:
             timeout (optional): time in seconds for
                 the GET method.
         """
+        # Check for the url to not be an empty str
+        if not url or not isinstance(url, str):
+            raise ValueError("URL must be a non-empty string")
+        # Timeout can't be 0 or negative value
+        if timeout <= 0:
+            raise ValueError("Timeout must be positive")
+
         # Try/catch to check url
         try:
             response = requests.get(url, timeout=timeout)
@@ -40,20 +40,17 @@ class GetDataFromUrl:
             return response.content
 
         except requests.Timeout:
-            print(f"response took more than {timeout} seconds")
-            return None
+            raise TimeoutError(f"Request exceeded {timeout} seconds")
 
         except requests.HTTPError as e:
-            print(f"HTTP Error {e.response.status_code}: {e}")
-            return None
+            raise RuntimeError(f"HTTP Error {e.response.status_code}: {e}")
 
         except requests.RequestException as e:
-            print(f"Download failed: {e}")
-            return None
+            raise ConnectionError(f"Download failed: {e}")
 
     def download_file(
-        self, url_data: bytes, output_path: str | None = None
-    ) -> str:
+        self, url_data: bytes, output_path: Path | None = None
+    ) -> Path:
         """
         Download the data file to a .csv file,
         creates the /data folder and saves
@@ -70,9 +67,8 @@ class GetDataFromUrl:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"order_items_{timestamp}.csv"
 
-        # Create data folder if doesn't exist
-        data_folder = Path("../data")
-        data_folder.mkdir(parents=True, exist_ok=True)
+        # Create data folder if doesn't exist (updated)
+        data_folder = get_data_directory()
 
         # Falta agregar check: exist ?
         output_file = data_folder / filename
