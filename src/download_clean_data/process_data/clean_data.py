@@ -11,7 +11,7 @@ class ReadCsv:
     as a pandas dataframe.
     """
 
-    def read(self, path_file: str) -> pd.DataFrame:
+    def read(self, path_file: Path) -> pd.DataFrame:
         return pd.read_csv(path_file, sep=",")
 
 

@@ -67,7 +67,7 @@ class DataStats:
         stats_dict = self.build_stats_dict()
 
         if output_path is None:
-            output_path = get_data_directory() / "processing_statts.json"
+            output_path = get_data_directory() / "processing_stats.json"
         else:
             output_path = Path(output_path)
             output_path.parent.mkdir(parents=True, exist_ok=True)
