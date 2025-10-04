@@ -9,19 +9,6 @@ class GetDataFromUrl:
     Class to verify URL and dowload the file
     """
 
-    def __init__(self):
-        pass
-
-    def check_url(self, timeout=15) -> bool:
-        """Verify if the URL exist and can
-        be applied a GET request.
-
-        Args:
-            timeout: time
-
-        """
-        pass
-
     def check_request(self, url: str, timeout: int = 15) -> bytes:
         """This function do the request (GET)
         to the url and raise an exception if
@@ -33,6 +20,13 @@ class GetDataFromUrl:
             timeout (optional): time in seconds for
                 the GET method.
         """
+        # Check for the url to not be an empty str
+        if not url or not isinstance(url, str):
+            raise ValueError("URL must be a non-empty string")
+        # Timeout can't be 0 or negative value
+        if timeout <= 0:
+            raise ValueError("Timeout must be positive")
+
         # Try/catch to check url
         try:
             response = requests.get(url, timeout=timeout)
@@ -41,19 +35,18 @@ class GetDataFromUrl:
 
         except requests.Timeout:
             print(f"response took more than {timeout} seconds")
-            return None
+            raise TimeoutError(f"Request exceeded {timeout} seconds")
 
         except requests.HTTPError as e:
-            print(f"HTTP Error {e.response.status_code}: {e}")
-            return None
+            raise print(f"HTTP Error {e.response.status_code}: {e}")
 
         except requests.RequestException as e:
             print(f"Download failed: {e}")
             return None
 
     def download_file(
-        self, url_data: bytes, output_path: str | None = None
-    ) -> str:
+        self, url_data: bytes, output_path: Path | None = None
+    ) -> Path:
         """
         Download the data file to a .csv file,
         creates the /data folder and saves
@@ -71,7 +64,10 @@ class GetDataFromUrl:
         filename = f"order_items_{timestamp}.csv"
 
         # Create data folder if doesn't exist
-        data_folder = Path("../data")
+        project_root = Path(
+            __file__
+        ).parent.parent.parent.parent  # Take the path of the file (__file__)
+        data_folder = project_root / "data"
         data_folder.mkdir(parents=True, exist_ok=True)
 
         # Falta agregar check: exist ?

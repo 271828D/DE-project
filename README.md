@@ -45,12 +45,15 @@ All reports are saved in the ```data/``` folder:
 1. ```order_items_<timestamp>.csv```
 2. ```discarded_rows.csv```
 3. ```processing_stats.json```
-```{
+```
+{
     "total_rows": int,
     "total_empty_rows_removed": int,
     "total_invalid_rows_discarded": int,
     "total_duplicate_rows_removed": int,
     "total_usable_rows": int
-}```
+}
+```
+
 4. ```monthly_metrics.csv```
-        *TO DO*
+        **TO DO**
