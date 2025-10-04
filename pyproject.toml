@@ -61,8 +61,8 @@ addopts = "-v --cov=src --cov-report=term"
 source = ["src"]
 omit = ["*/tests/*", "*/notebooks/*", "*/data/*"]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "black>=25.1.0",
     "flake8>=7.1.0",
     "pytest>=8.4.0",
