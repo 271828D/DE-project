@@ -34,15 +34,13 @@ class GetDataFromUrl:
             return response.content
 
         except requests.Timeout:
-            print(f"response took more than {timeout} seconds")
             raise TimeoutError(f"Request exceeded {timeout} seconds")
 
         except requests.HTTPError as e:
-            raise print(f"HTTP Error {e.response.status_code}: {e}")
+            raise RuntimeError(f"HTTP Error {e.response.status_code}: {e}")
 
         except requests.RequestException as e:
-            print(f"Download failed: {e}")
-            return None
+            raise ConnectionError(f"Download failed: {e}")
 
     def download_file(
         self, url_data: bytes, output_path: Path | None = None

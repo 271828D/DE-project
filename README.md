@@ -29,7 +29,7 @@ python main.py --url "CSV_URL_HERE"
 ```
 ### **Example**
 ```bash
-python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_2_.csv"
+python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
 ```
 ## **What It Does**
 1. **Downloads** the CSV file from the provided URL
