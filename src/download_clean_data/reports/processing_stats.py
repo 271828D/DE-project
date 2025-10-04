@@ -2,6 +2,8 @@
 
 import json
 import pandas as pd
+from pathlib import Path
+from ..utils.paths import get_data_directory
 
 
 class DataStats:
@@ -59,10 +61,16 @@ class DataStats:
         }
 
     def save_stats_to_json(
-        self, output_path: str = "../data/processing_statts.json"
+        self, output_path: Path | str | None = None
     ) -> None:
         """Save stats on json file"""
         stats_dict = self.build_stats_dict()
+
+        if output_path is None:
+            output_path = get_data_directory() / "processing_statts.json"
+        else:
+            output_path = Path(output_path)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(output_path, "w") as f:  # open and write the file
             json.dump(stats_dict, f, indent=4)
