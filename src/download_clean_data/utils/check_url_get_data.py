@@ -1,7 +1,13 @@
-# from urllib.request import urlretrieve
+"""
+Script with the class GetDataFromUrl
+which handle the functions to get
+and download the data.
+"""
+
 import requests
 from pathlib import Path
 from datetime import datetime
+from ..utils.paths import get_data_directory
 
 
 class GetDataFromUrl:
@@ -61,12 +67,8 @@ class GetDataFromUrl:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"order_items_{timestamp}.csv"
 
-        # Create data folder if doesn't exist
-        project_root = Path(
-            __file__
-        ).parent.parent.parent.parent  # Take the path of the file (__file__)
-        data_folder = project_root / "data"
-        data_folder.mkdir(parents=True, exist_ok=True)
+        # Create data folder if doesn't exist (updated)
+        data_folder = get_data_directory()
 
         # Falta agregar check: exist ?
         output_file = data_folder / filename
