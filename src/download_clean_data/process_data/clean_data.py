@@ -1,6 +1,7 @@
 """Script to clean data from the .csv file"""
 
 import pandas as pd
+from datetime import datetime
 from pathlib import Path
 from ..utils.paths import get_data_directory
 
@@ -74,3 +75,21 @@ class CleanData:
             print(f"{len(discarded)} Discarded rows saved to {output_path}")
         else:
             print("No rows were discarded")
+
+    def save_clean_data(self, output_path: Path | str | None = None) -> None:
+        """Save clean rows in a .csv file"""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"clean_data_{timestamp}.csv"
+
+        if output_path is None:
+            output_path = get_data_directory() / filename
+        else:
+            output_path = Path(output_path)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Save logic
+        if not self.df.empty:
+            self.df.to_csv(output_path, index=False)
+            print(f"{len(self.df)} clean rows saved to {output_path}")
+        else:
+            print("No clean data to save (dataframe is empty)")

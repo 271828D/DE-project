@@ -1,0 +1,16 @@
+# Core application dependencies
+# These are required for the application to run in ANY environment
+
+# Data processing
+pandas>=2.3.0,<3.0.0
+numpy>=2.2.0,<3.0.0
+
+# HTTP/Web
+httpx>=0.28.0,<1.0.0
+requests>=2.32.0,<3.0.0
+
+# Configuration
+pyyaml>=6.0.0,<7.0.0
+
+# Date/Time utilities
+python-dateutil>=2.9.0

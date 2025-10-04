@@ -1,0 +1,10 @@
+# Staging dependencies
+# Install with: uv pip install -r requirements/staging.txt
+# Used for pre-production testing
+
+# Include base dependencies
+-r base.txt
+
+# Testing tools only (no dev tools like jupyter or formatters)
+pytest>=8.4.0
+pytest-cov>=5.0.0

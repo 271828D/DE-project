@@ -1,0 +1,9 @@
+# Production dependencies
+# Install with: uv pip install -r requirements/prod.txt
+# Minimal packages - only what's needed to run the application
+
+# Include base dependencies only
+-r base.txt
+
+# No testing tools, no dev tools, no jupyter
+# Production should be lean and secure

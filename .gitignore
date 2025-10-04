@@ -1,4 +1,17 @@
-
+# Data files
 /data/*.csv
 /data/*.json
+
+# Python cache
 *__pycache__
+.pytest_cache
+
+# UV specific
+.venv/
+.uv/
+uv.lock
+
+# Legacy conda (REMOVE AFTER FULL MIGRATION)
+.conda/
+environment.yml
+conda_packages_backup.txt
