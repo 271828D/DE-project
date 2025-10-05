@@ -2,8 +2,10 @@
 monthly metrics"""
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 import pandas as pd
+from pathlib import Path
+from ..utils.paths import get_data_directory
 
 
 @dataclass(frozen=True)  # Keep the object inmutable
@@ -88,6 +90,9 @@ def data_preparation(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=["purchased_date_cleaned"])
     # Filter "nan" strings
     df = df[df["purchased_date_cleaned"].astype(str).str.lower() != "nan"]
+    df = df[
+        df["purchased_date_cleaned"].astype(str).str.strip() != ""
+    ]  # Remove possible empty strings
 
     # Convert object column to date objects col
     df["purchased_date"] = pd.to_datetime(
@@ -141,3 +146,54 @@ def calculate_monthly_metrics(df_clean: pd.DataFrame) -> list[MonthlyMetrics]:
     monthly_groups["total_item_price"] = (
         monthly_groups["item_price"] - monthly_groups["item_promo_discount"]
     )
+
+    # Step to convert df rows to dataclass objects
+    metrics = [
+        MonthlyMetrics(
+            month_year=str(row["month_year"]),
+            total_item_promo_discount=round(row["item_promo_discount"], 2),
+            total_item_price=round(row["total_item_price"], 2),
+        )
+        for _, row in monthly_groups.iterrows()
+    ]
+
+    return metrics
+
+
+def save_monthly_metrics_to_csv(
+    df_clean: pd.DataFrame, output_path: Path | str | None = None
+) -> None:
+    """
+    Calc. monthly_metrics and save them to a CSV file.
+
+    Args:
+        df_clean: The cleaned dataframe from CleanData class
+        output_path: Optional. Where to save the file.
+                     If None: Uses default location /data/monthly_metrics.csv
+
+    Returns:
+        None (just saves the file)
+    """
+
+    metrics = calculate_monthly_metrics(df_clean)  # Metric calc
+
+    if output_path is None:
+        output_path = (
+            get_data_directory() / "monthly_metrics.csv"
+        )  # Default loc: /data/
+    else:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    metrics_dicts = [
+        asdict(metric) for metric in metrics
+    ]  # Conv. dataclass to obj. dict.
+
+    df_output = pd.DataFrame(metrics_dicts)  # DF from dict.
+
+    df_output = df_output[
+        ["month_year", "total_item_promo_discount", "total_item_price"]
+    ]
+
+    df_output.to_csv(output_path, index=False)
+    print(f"monthly_metrics.csv saved to: {output_path}")
