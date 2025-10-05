@@ -4,6 +4,11 @@ import argparse
 from src.download_clean_data.utils.check_url_get_data import GetDataFromUrl
 from src.download_clean_data.process_data.clean_data import ReadCsv, CleanData
 from src.download_clean_data.reports.processing_stats import DataStats
+from src.download_clean_data.reports.monthly_metrics import (
+    data_preparation,
+    calculate_monthly_metrics,
+    save_monthly_metrics_to_csv,
+)
 
 
 def main():
@@ -47,10 +52,11 @@ def main():
 
     data_stats.save_stats_to_json()
 
+    clean_df = data_preparation(cleaner.df)  # Second cleaning process
+    metrics = calculate_monthly_metrics(clean_df)
 
-# python main.py
-# --url "https://people.sc.fsu.edu/~jburkardt/data/csv/airtravel.csv"
-# Testing funcionalities
+    save_monthly_metrics_to_csv(metrics)
+
 
 if __name__ == "__main__":
 
