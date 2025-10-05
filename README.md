@@ -26,7 +26,7 @@ source .venv/bin/activate
 ### 4. Run the Application
 ```
 # Run with example URL
-uv run python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
+uv run --active python main.py --url "https://storage.googleapis.com/nozzle-csv-exports/testing-data/order_items_data_2_.csv"
 ```
 
 **Note: Conda support is deprecated.**

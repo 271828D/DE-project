@@ -6,7 +6,6 @@ from src.download_clean_data.process_data.clean_data import ReadCsv, CleanData
 from src.download_clean_data.reports.processing_stats import DataStats
 from src.download_clean_data.reports.monthly_metrics import (
     data_preparation,
-    calculate_monthly_metrics,
     save_monthly_metrics_to_csv,
 )
 
@@ -52,10 +51,9 @@ def main():
 
     data_stats.save_stats_to_json()
 
+    # monthly metrics report
     clean_df = data_preparation(cleaner.df)  # Second cleaning process
-    metrics = calculate_monthly_metrics(clean_df)
-
-    save_monthly_metrics_to_csv(metrics)
+    save_monthly_metrics_to_csv(df_clean=clean_df)
 
 
 if __name__ == "__main__":
