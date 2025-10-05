@@ -110,14 +110,24 @@ def data_preparation(df: pd.DataFrame) -> pd.DataFrame:
     df["item_price_cleaned"] = df["item_price"].apply(
         clean_price_string
     )  # Cleaning step item_price, this keep values <= 0
+
     df["item_promo_discount_cleaned"] = df["item_promo_discount"].apply(
         clean_price_string  # Cleaning step item_promo_discount, this keep values <= 0
     )
+
+    # Filter "nan" strings
+    df = df[df["item_price_cleaned"].astype(str).str.lower() != "nan"]
+    df = df[df["item_promo_discount_cleaned"].astype(str).str.lower() != "nan"]
+
+    # Filter empty strings
+    df = df[df["item_price_cleaned"].astype(str).str.strip() != ""]
+    df = df[df["item_promo_discount_cleaned"].astype(str).str.strip() != ""]
 
     # Additionally after check and rescue corrupted values i need to erase NA rows
     df["item_price"] = pd.to_numeric(
         df["item_price_cleaned"], errors="coerce"
     )  # item_price to numeric
+
     # item_promo_discount to numeric
     df["item_promo_discount"] = pd.to_numeric(
         df["item_promo_discount_cleaned"], errors="coerce"
