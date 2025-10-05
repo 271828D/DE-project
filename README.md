@@ -57,8 +57,15 @@ All reports are saved in the ```data/``` folder:
 }
 ```
 
-1. ```monthly_metrics.csv```
-        **TO DO**
+4. ```monthly_metrics.csv```
+
+| month_year | total_item_promo_discount | total_item_price |
+|------------|---------------------------|------------------|
+| 2025-01    | 12,444,303.37            | 70,550,200.07    |
+| 2025-02    | 11,240,559.38            | 63,598,463.35    |
+| 2025-03    | 12,484,082.41            | 70,795,796.21    |
+| 2025-04    | 12,052,204.42            | 68,280,241.96    |
+| 2025-05    | 12,476,208.51            | 70,717,750.66    |
 
 ## **Legacy Conda Support (Deprecated)**
 If you still need to use conda:
